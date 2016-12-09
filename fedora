@@ -1,6 +1,6 @@
 FROM fedora:latest
 ENV DEBIAN_FRONTEND noninteractive
-RUN dnf install -y make cmake git gcc-c++ doxygen python2-devel openmpi-devel environment-modules python-pip clang ccache findutils boost-devel python2-sphinx fftw-devel python-matplotlib texlive-latex-bin graphviz boost-openmpi-devel ghostscript mpi4py-openmpi
+RUN dnf install -y make cmake git gcc-c++ doxygen python2-devel openmpi-devel environment-modules python-pip clang compiler-rt ccache findutils boost-devel python2-sphinx fftw-devel python-matplotlib texlive-latex-bin graphviz boost-openmpi-devel ghostscript mpi4py-openmpi
 
 RUN useradd -m espressopp
 USER espressopp
