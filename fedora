@@ -5,5 +5,6 @@ RUN dnf install -y make cmake git gcc-c++ doxygen python2 openmpi-devel environm
 RUN useradd -m espressopp
 USER espressopp
 ENV PATH=/usr/lib64/ccache:${PATH}${PATH:+:}/usr/lib64/openmpi/bin/
+ENV PYTHONPATH=/usr/lib64/python2.7/site-packages/openmpi${PYTHONPATH:+:}${PYTHONPATH}
 WORKDIR /home/espressopp
 RUN pip install --user codecov
