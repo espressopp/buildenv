@@ -1,0 +1,8 @@
+FROM opensuse:latest
+RUN  zypper install gcc-c++ openmpi-devel boost-devel python-mpi4py-devel python-devel cmake ccache fftw3-devel
+
+RUN useradd -m espressopp
+USER espressopp
+ENV PATH=/usr/lib64/ccache:${PATH}${PATH:+:}
+WORKDIR /home/espressopp
+RUN pip install --user codecov
