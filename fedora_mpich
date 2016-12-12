@@ -1,0 +1,10 @@
+FROM fedora:latest
+ENV DEBIAN_FRONTEND noninteractive
+RUN dnf install -y make cmake git gcc-c++ doxygen python2-devel mpich-devel environment-modules python-pip clang compiler-rt ccache findutils boost-devel python2-sphinx fftw-devel python-matplotlib texlive-latex-bin graphviz boost-mpich-devel ghostscript mpi4py-mpich texlive-hyphen-base texlive-cm texlive-cmap texlive-ucs texlive-ec
+
+RUN useradd -m espressopp
+USER espressopp
+ENV PATH=/usr/lib64/ccache:${PATH}${PATH:+:}/usr/lib64/mpich/bin/
+ENV PYTHONPATH=/usr/lib64/python2.7/site-packages/mpich${PYTHONPATH:+:}${PYTHONPATH}
+WORKDIR /home/espressopp
+RUN pip install --user codecov
