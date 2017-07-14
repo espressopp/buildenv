@@ -1,0 +1,26 @@
+language: c 
+
+sudo: required
+
+services:
+ - docker
+
+env:
+  matrix:
+    - DISTRO=fedora DOCKERHUB=true
+    - DISTRO=ubuntu DOCKERHUB=true
+    - DISTRO=fedora_mpich DOCKERHUB=true
+    - DISTRO=ubuntu_mpich DOCKERHUB=true
+
+script:
+  - mkdir ${HOME}/docker
+  - cp -v ${DISTRO} ${HOME}/docker/Dockerfile
+  - if [[ ${TRAVIS_BRANCH} != master ]]; then TAG="${TAG}_${TRAVIS_BRANCH}"; fi
+  - docker build -t ${TRAVIS_REPO_SLUG}:${DISTRO}${TAG} ${HOME}/docker/
+
+after_success:
+  - shopt -s extglob && [[ ${TRAVIS_BRANCH} = @(master|refactor) ]] && DEPLOY=yes
+  - if [[ ${DOCKERHUB} = true && ${DOCKER_USERNAME} && ${DOCKER_PASSWORD} && ${TRAVIS_PULL_REQUEST} == false && ${DEPLOY} ]]; then
+      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+      docker push "${TRAVIS_REPO_SLUG}:${DISTRO}${TAG}";
+   fi
