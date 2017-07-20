@@ -1,6 +1,6 @@
 FROM fedora:latest
 ENV DEBIAN_FRONTEND noninteractive
-RUN dnf install -y make cmake wget git gcc-c++ doxygen python2-devel mpich-devel environment-modules python-pip clang llvm compiler-rt ccache findutils boost-devel python2-sphinx fftw-devel python-matplotlib texlive-latex-bin graphviz boost-mpich-devel ghostscript mpi4py-mpich texlive-hyphen-base texlive-cm texlive-cmap texlive-ucs texlive-ec gromacs-devel hwloc-devel
+RUN dnf install -y make cmake wget git gcc-c++ doxygen python2-devel mpich-devel environment-modules python-pip clang llvm compiler-rt ccache findutils boost-devel python2-sphinx fftw-devel python-matplotlib texlive-latex-bin graphviz boost-mpich-devel ghostscript mpi4py-mpich texlive-hyphen-base texlive-cm texlive-cmap texlive-ucs texlive-ec gromacs-devel hwloc-devel lmfit-devel ocl-icd-devel
 RUN wget -O /usr/bin/doxy-coverage https://raw.githubusercontent.com/alobbs/doxy-coverage/master/doxy-coverage.py
 RUN chmod +x /usr/bin/doxy-coverage
 
