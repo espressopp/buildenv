@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 RUN apt-get -q update -y
-RUN apt-get -qq install -y build-essential openmpi-bin libfftw3-dev libboost-all-dev git python-mpi4py cmake wget python-numpy ipython clang llvm ccache python-pip doxygen sphinx-common python-matplotlib graphviz texlive-latex-base texlive-latex-extra texlive-latex-recommended ghostscript libgromacs-dev clang-format
+RUN apt-get -qq install -y build-essential openmpi-bin libfftw3-dev libboost-all-dev git python-mpi4py cmake wget python-numpy ipython clang llvm ccache python-pip doxygen sphinx-common python-matplotlib graphviz texlive-latex-base texlive-latex-extra texlive-latex-recommended ghostscript libgromacs-dev clang-format curl
 RUN wget -O /usr/bin/doxy-coverage https://raw.githubusercontent.com/alobbs/doxy-coverage/master/doxy-coverage.py
 RUN chmod +x /usr/bin/doxy-coverage
 
