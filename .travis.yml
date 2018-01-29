@@ -17,6 +17,7 @@ script:
   - mkdir ${HOME}/docker
   - cp -v ${DISTRO} ${HOME}/docker/Dockerfile
   - if [[ ${TRAVIS_BRANCH} != master ]]; then TAG="${TAG}_${TRAVIS_BRANCH}"; fi
+  - travis_retry timeout 300 docker pull $(sed -n '1s/from //p' ${HOME}/docker/Dockerfile)
   - travis_retry docker build -t ${TRAVIS_REPO_SLUG}:${DISTRO}${TAG} ${HOME}/docker/
 
 after_success:
