@@ -17,7 +17,7 @@ script:
   - mkdir ${HOME}/docker
   - cp -v ${DISTRO} ${HOME}/docker/Dockerfile
   - if [[ ${TRAVIS_BRANCH} != master ]]; then TAG="${TAG}_${TRAVIS_BRANCH}"; fi
-  - docker build -t ${TRAVIS_REPO_SLUG}:${DISTRO}${TAG} ${HOME}/docker/
+  - travis_retry docker build -t ${TRAVIS_REPO_SLUG}:${DISTRO}${TAG} ${HOME}/docker/
 
 after_success:
   - ~/.local/bin/docker-squash -f "${DISTRO%_mpich}:latest" "${TRAVIS_REPO_SLUG}:${DISTRO}${TAG}"
