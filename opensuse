@@ -1,8 +1,8 @@
 FROM opensuse:latest
-RUN  zypper install -y gcc-c++ openmpi-devel boost-devel python-mpi4py-devel python-devel cmake ccache fftw3-devel
+RUN  zypper install -y gcc-c++ openmpi-devel boost-devel python-mpi4py-devel python-devel cmake ccache fftw3-devel hdf5 hdf5-devel
 
 RUN useradd -m espressopp
 USER espressopp
 ENV PATH=/usr/lib64/ccache:${PATH}${PATH:+:}
 WORKDIR /home/espressopp
-RUN pip install --user codecov
+RUN pip install --user codecov coverxygen h5py && python -c 'import h5py'
