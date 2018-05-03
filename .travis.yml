@@ -9,6 +9,7 @@ env:
   matrix:
     - DISTRO=fedora DOCKERHUB=true
     - DISTRO=ubuntu DOCKERHUB=true
+    - DISTRO=ubuntu_rolling DOCKERHUB=true
     - DISTRO=fedora_mpich DOCKERHUB=true
     - DISTRO=ubuntu_mpich DOCKERHUB=true
 
