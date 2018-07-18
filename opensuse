@@ -1,5 +1,5 @@
 FROM opensuse:latest
-RUN  zypper install -y gcc-c++ openmpi-devel boost-devel python-mpi4py-devel python-devel cmake ccache fftw3-devel hdf5 hdf5-devel
+RUN  zypper install -y gcc-c++ openmpi-devel boost-devel python-mpi4py-devel python-devel python-pip cmake ccache fftw3-devel hdf5 hdf5-devel
 
 RUN useradd -m espressopp
 USER espressopp
