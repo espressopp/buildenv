@@ -12,6 +12,7 @@ env:
     - DISTRO=ubuntu_rolling DOCKERHUB=true
     - DISTRO=fedora_mpich DOCKERHUB=true
     - DISTRO=ubuntu_mpich DOCKERHUB=true
+    - DISTRO=opensuse DOCKERHUB=true
 
 script:
   - pip install --user docker-squash
