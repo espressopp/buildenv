@@ -1,5 +1,5 @@
 FROM opensuse/leap:latest
-RUN zypper install -y gcc-c++ openmpi-devel boost-devel python-mpi4py-devel python-devel cmake ccache fftw3-devel hdf5 hdf5-devel gromacs-devel python-pip
+RUN zypper install -y gcc-c++ openmpi-devel boost-devel python-mpi4py-devel python-devel cmake ccache fftw3-devel hdf5 hdf5-devel gromacs-devel python-pip llvm-clang
 
 RUN useradd -m -U espressopp
 USER espressopp
