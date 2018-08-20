@@ -23,7 +23,8 @@ script:
   - travis_retry docker build -t ${TRAVIS_REPO_SLUG}:${DISTRO}${TAG} ${HOME}/docker/
 
 after_success:
-  - ~/.local/bin/docker-squash -f "${DISTRO%_mpich}:latest" "${TRAVIS_REPO_SLUG}:${DISTRO}${TAG}"
+  - BASE_IMAGE="$(sed -n '1s/FROM //p' ${HOME}/docker/Dockerfile)"
+  - ~/.local/bin/docker-squash -f "${BASE_IMAGE}" "${TRAVIS_REPO_SLUG}:${DISTRO}${TAG}"
   - shopt -s extglob && [[ ${TRAVIS_BRANCH} = @(master|refactor) ]] && DEPLOY=yes
   - if [[ ${DOCKERHUB} = true && ${DOCKER_USERNAME} && ${DOCKER_PASSWORD} && ${TRAVIS_PULL_REQUEST} == false && ${DEPLOY} ]]; then
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
