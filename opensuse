@@ -1,5 +1,5 @@
 FROM opensuse/leap:latest
-RUN zypper install -y gcc-c++ openmpi2-devel boost-devel libboost_filesystem-devel libboost_mpi-devel libboost_python-devel libboost_serialization-devel libboost_system-devel python-mpi4py-devel python-devel cmake ccache fftw3-devel hdf5 hdf5-devel gromacs-devel python-pip llvm-clang
+RUN zypper install -y gcc-c++ openmpi2-devel boost-devel libboost_filesystem-devel libboost_mpi-devel libboost_python-devel libboost_serialization-devel libboost_system-devel libboost_test1_66_0 python-mpi4py-devel python-devel cmake ccache fftw3-devel hdf5 hdf5-devel gromacs-devel python-pip llvm-clang libboost_test1_66_0-devel
 
 RUN useradd -m -U espressopp
 USER espressopp
