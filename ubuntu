@@ -3,10 +3,10 @@ FROM ubuntu:latest
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get -q update -y
 RUN apt-get -qq install -y build-essential openmpi-bin libfftw3-dev \
-    libboost-all-dev git python-mpi4py cmake wget python-numpy ipython \
-    clang llvm ccache python-pip doxygen sphinx-common python-matplotlib \
+    libboost-all-dev git python3-mpi4py cmake wget python3-numpy ipython3 \
+    clang llvm ccache python3-pip doxygen sphinx-common python3-matplotlib \
     graphviz texlive-latex-base texlive-latex-extra texlive-latex-recommended \
-    ghostscript libgromacs-dev clang-format curl latexmk libhdf5-dev python-h5py sudo
+    ghostscript libgromacs-dev clang-format curl latexmk libhdf5-dev python3-h5py sudo
 RUN wget -O /usr/bin/doxy-coverage https://raw.githubusercontent.com/alobbs/doxy-coverage/master/doxy-coverage.py
 RUN chmod +x /usr/bin/doxy-coverage
 
@@ -15,4 +15,4 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER espressopp
 ENV PATH=/usr/lib/ccache:${PATH}${PATH:+:}
 WORKDIR /home/espressopp
-RUN pip install --user codecov coverxygen
+RUN pip3 install --user codecov coverxygen
