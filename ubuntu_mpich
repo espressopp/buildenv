@@ -16,4 +16,4 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER espressopp
 ENV PATH=/usr/lib/ccache:${PATH}${PATH:+:}
 WORKDIR /home/espressopp
-RUN pip install --user codecov coverxygen
+RUN pip3 install --user codecov coverxygen
