@@ -2,11 +2,11 @@ FROM fedora:latest
 ENV DEBIAN_FRONTEND noninteractive
 RUN dnf makecache
 RUN dnf install -y make cmake wget git gcc-c++ doxygen python3-devel mpich-devel \
-    environment-modules python-pip clang llvm compiler-rt ccache findutils boost-devel \
-    boost-python3-devel python-sphinx fftw-devel python-matplotlib texlive-latex-bin \
-    graphviz boost-mpich-devel ghostscript mpi4py-mpich texlive-hyphen-base texlive-cm \
+    environment-modules python3-pip clang llvm compiler-rt ccache findutils boost-devel \
+    boost-python3-devel python3-sphinx fftw-devel python3-matplotlib texlive-latex-bin \
+    graphviz boost-mpich-devel ghostscript python3-mpi4py-mpich texlive-hyphen-base texlive-cm \
     texlive-cmap texlive-ucs texlive-ec gromacs-devel hwloc-devel lmfit-devel ocl-icd-devel \
-    hdf5-devel python2-h5py atlas hdf5 liblzf python-six python-nose python-numpy sudo
+    hdf5-devel python3-h5py atlas hdf5 liblzf python3-six python3-nose python3-numpy sudo
 RUN wget -O /usr/bin/doxy-coverage https://raw.githubusercontent.com/alobbs/doxy-coverage/master/doxy-coverage.py
 RUN chmod +x /usr/bin/doxy-coverage
 
@@ -14,6 +14,6 @@ RUN useradd -m -G wheel espressopp
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER espressopp
 ENV PATH=/usr/lib64/ccache:${PATH}${PATH:+:}/usr/lib64/mpich/bin/
-ENV PYTHONPATH=/usr/lib64/python2.7/site-packages/mpich${PYTHONPATH:+:}${PYTHONPATH}
+ENV PYTHONPATH=/usr/lib64/python3.8/site-packages/mpich${PYTHONPATH:+:}${PYTHONPATH}
 WORKDIR /home/espressopp
 RUN pip install --user codecov coverxygen
