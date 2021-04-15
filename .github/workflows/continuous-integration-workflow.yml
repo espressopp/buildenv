@@ -1,0 +1,41 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    - cron:  '0 3 * * FRI'
+
+jobs:
+  CI:
+    continue-on-error: ${{ matrix.config.continue-on-error == 'true' }}
+    strategy:
+      matrix:
+        config:
+          - {dockerfile: 'fedora',   tag: 'fedora'}
+          - {dockerfile: 'fedora',   tag: 'fedora_mpich',        build_args: 'MPI=mpich'}
+          - {dockerfile: 'fedora',   tag: 'fedora_rawhide',      build_args: 'TAG=rawhide', continue-on-error: 'true'}
+          - {dockerfile: 'ubuntu',   tag: 'ubuntu'}
+          - {dockerfile: 'ubuntu',   tag: 'ubuntu_mpich',        build_args: 'MPI=mpich'}
+          - {dockerfile: 'ubuntu',   tag: 'ubuntu_rolling',      build_args: 'TAG=rolling'}
+          - {dockerfile: 'ubuntu',   tag: 'ubuntu_devel',        build_args: 'TAG=devel', continue-on-error: 'true'}
+          - {dockerfile: 'opensuse', tag: 'opensuse',            continue-on-error: 'true'}
+          - {dockerfile: 'fedora',   tag: 'fedora_intel',        build_args: 'INTEL=yes'}
+          - {dockerfile: 'fedora',   tag: 'fedora_intel-oneapi', build_args: 'INTEL_ONEAPI=yes'}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout out code
+        uses: actions/checkout@v2
+      - name: Build Docker images for Docker
+        uses: docker/build-push-action@v1
+        with:
+          repository: espressopp/buildenv/${{ matrix.config.dockerfile }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: ${{ matrix.config.tag }}
+          dockerfile: ${{ matrix.config.dockerfile }}
+          build_args: ${{ matrix.config.build_args }}
+          push: ${{ github.event_name == 'push' ||  github.event_name == 'schedule' }}
