@@ -32,7 +32,7 @@ jobs:
       - name: Build Docker images for Docker
         uses: docker/build-push-action@v1
         with:
-          repository: espressopp/buildenv/${{ matrix.config.dockerfile }}
+          repository: espressopp/buildenv
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: ${{ matrix.config.tag }}
