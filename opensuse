@@ -5,7 +5,7 @@ ARG MPI=openmpi2
 RUN zypper dup -y && \
     zypper install -y gcc-c++ ${MPI}-devel boost-devel libboost_filesystem-devel \
     libboost_mpi-devel libboost_python3-devel libboost_serialization-devel \
-    libboost_system-devel libboost_test-devel shadow \
+    libboost_system-devel libboost_test-devel shadow git \
     python3-mpi4py-devel python3-devel cmake ccache fftw3-devel hdf5 hdf5-devel \
     gromacs-devel python3-pip llvm-clang python3-h5py sudo && \
     zypper clean
