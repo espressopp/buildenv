@@ -42,6 +42,7 @@ RUN useradd -m -G wheel -u 1001 espressopp
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER espressopp
 ENV PATH=/usr/lib64/ccache:${PATH}${PATH:+:}/usr/lib64/${MPI}/bin/
+ENV LD_LIBRARY_PATH=/usr/lib64/${MPI}/lib${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH}
 RUN XPYTHON=$(basename $(readlink -f /usr/bin/python3)); if [[ ${XPYTHON} != ${PYTHON} ]]; then echo "PYTHON default needs update (is currently ${PYTHON}, but found ${XPYTHON})"; exit 1; fi
 ENV PYTHONPATH=/usr/lib64/${PYTHON}/site-packages/${MPI}${PYTHONPATH:+:}${PYTHONPATH}
 WORKDIR /home/espressopp
