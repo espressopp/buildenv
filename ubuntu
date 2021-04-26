@@ -16,7 +16,7 @@ RUN apt-get update && \
     libboost-all-dev git python3-mpi4py cmake wget python3-numpy ipython3 \
     clang llvm ccache python3-pip doxygen sphinx-common python3-matplotlib \
     graphviz texlive-latex-base texlive-latex-extra texlive-latex-recommended \
-    ghostscript libgromacs-dev clang-format curl latexmk libhdf5-dev python3-h5py sudo && \
+    ghostscript libgromacs-dev clang-format curl latexmk libhdf5-${MPI}-dev hdf5-tools python3-h5py sudo && \
     apt-get purge --autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
