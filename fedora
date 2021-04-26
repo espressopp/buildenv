@@ -13,7 +13,7 @@ RUN ( dnf -y update || dnf -y update ) && \
     python-matplotlib texlive-latex-bin graphviz boost-${MPI}-devel latexmk \
     ghostscript python3-mpi4py-${MPI} texlive-hyphen-base texlive-cm texlive-cmap \
     texlive-ucs texlive-ec gromacs-devel hwloc-devel lmfit-devel ocl-icd-devel hdf5-devel python-h5py-${MPI} atlas hdf5-${MPI}-devel liblzf \
-    python-six python-nose python-numpy sudo && \
+    python-six python-nose python-numpy texlive-amsmath sudo && \
     dnf clean all
 
 RUN if [ -n "${INTEL}" ]; then \
