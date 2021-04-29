@@ -11,6 +11,7 @@ RUN zypper dup -y && \
     gromacs-devel python3-pip llvm-clang python3-h5py-${MPI} sudo && \
     zypper clean
 
+RUN pip3 install pyh5md
 RUN groupadd -r wheel
 RUN useradd -m -G wheel -u 1001 -U espressopp
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers

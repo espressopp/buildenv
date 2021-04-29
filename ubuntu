@@ -20,6 +20,7 @@ RUN apt-get update && \
     apt-get purge --autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
+RUN pip3 install pyh5md
 RUN useradd -m -G sudo -u 1001 espressopp
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER espressopp
