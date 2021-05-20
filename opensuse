@@ -1,7 +1,7 @@
 FROM opensuse/tumbleweed:latest
 
 ARG PYTHON=python3.8
-ARG MPI=openmpi2
+ARG MPI=openmpi4
 
 RUN zypper dup -y && \
     zypper install -y gcc-c++ ${MPI}-devel boost-devel libboost_filesystem-devel \
