@@ -20,6 +20,13 @@ RUN apt-get update && \
     apt-get purge --autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
+RUN wget -O boost.tar.gz https://boostorg.jfrog.io/ui/api/v1/download?repoKey=main&path=release%252F1.77.0%252Fsource%252Fboost_1_77_0.tar.gz
+RUN tar -xzvf boost.tar.gz
+RUN cd boost/
+RUN ./bootstrap.sh
+RUN ./b2
+RUN ./b2 install
+
 RUN pip3 install pyh5md
 RUN useradd -m -G sudo -u 1001 espressopp
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
