@@ -17,17 +17,24 @@ jobs:
         config:
           - {dockerfile: 'fedora',   tag: 'fedora'}
           - {dockerfile: 'fedora',   tag: 'fedora_mpich',        build_args: 'MPI=mpich'}
-          - {dockerfile: 'fedora',   tag: 'fedora_rawhide',      build_args: 'TAG=rawhide', continue-on-error: 'true'}
+          - {dockerfile: 'fedora',   tag: 'fedora_rawhide',      build_args: 'TAG=rawhide,PYTHON=python3.10', continue-on-error: 'true'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_mpich',        build_args: 'MPI=mpich'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_rolling',      build_args: 'TAG=rolling'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_devel',        build_args: 'TAG=devel', continue-on-error: 'true'}
           - {dockerfile: 'opensuse', tag: 'opensuse',            continue-on-error: 'true'}
-          - {dockerfile: 'fedora',   tag: 'fedora_intel',        build_args: 'TAG=33,INTEL=yes'}
+          - {dockerfile: 'fedora',   tag: 'fedora_intel',        build_args: 'INTEL=yes'}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout out code
         uses: actions/checkout@v2
+      # See https://bugzilla.redhat.com/show_bug.cgi?id=1988199#c3 for more information
+      - name: Download Docker with patched seccomp
+        run: |
+          sudo systemctl stop docker containerd
+          sudo apt-get remove --autoremove -y moby-engine moby-cli moby-buildx moby-containerd moby-runc
+          sudo add-apt-repository -y ppa:pascallj/docker.io-clone3
+          sudo apt-get install -y docker.io
       - name: Build Docker images for Docker
         uses: docker/build-push-action@v1
         with:
