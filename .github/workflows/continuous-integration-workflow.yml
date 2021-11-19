@@ -23,7 +23,7 @@ jobs:
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_rolling',      build_args: 'TAG=rolling'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_devel',        build_args: 'TAG=devel', continue-on-error: 'true'}
           - {dockerfile: 'opensuse', tag: 'opensuse',            continue-on-error: 'true'}
-          - {dockerfile: 'fedora',   tag: 'fedora_intel',        build_args: 'INTEL=yes'}
+          - {dockerfile: 'fedora',   tag: 'fedora_intel',        build_args: 'TAG=34,PYTHON=python3.9,INTEL=yes'}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout out code
