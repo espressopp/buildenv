@@ -1,4 +1,4 @@
-ARG TAG=latest
+ARG TAG=rolling
 FROM ubuntu:${TAG}
 
 ARG MPI=openmpi
