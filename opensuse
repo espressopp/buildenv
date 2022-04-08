@@ -8,7 +8,7 @@ RUN zypper dup -y && \
     libboost_mpi-devel libboost_python3-devel libboost_serialization-devel \
     libboost_system-devel libboost_test-devel shadow git libboost_numpy3-devel \
     python3-mpi4py-devel python3-devel cmake ccache fftw3-devel hdf5-${MPI}-devel \
-    gromacs-devel python3-pip llvm-clang python3-h5py-${MPI} sudo libomp-devel && \
+    gromacs-devel python3-pip llvm-clang python3-h5py-${MPI} sudo libomp-devel zlib-devel && \
     zypper clean
 
 RUN pip3 install pyh5md
@@ -20,4 +20,6 @@ ENV PATH=/usr/lib64/ccache:/usr/lib64/mpi/gcc/${MPI}/bin${PATH:+:}${PATH}
 ENV LD_LIBRARY_PATH=/usr/lib64/mpi/gcc/${MPI}/lib64${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH}
 RUN XPYTHON=$(basename $(readlink -f /usr/bin/python3)); if [[ ${XPYTHON} != ${PYTHON} ]]; then echo "PYTHON default needs update (is currently ${PYTHON}, but found ${XPYTHON})"; exit 1; fi
 ENV PYTHONPATH=/usr/lib64/mpi/gcc/${MPI}/lib64/${PYTHON}/site-packages${PYTHONPATH:+:}${PYTHONPATH}
+# workaround for bug in openSUSE package, also remove zlib-devel above when fixed!
+ENV HDF5_USE_SHLIB=yes
 WORKDIR /home/espressopp
