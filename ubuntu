@@ -25,4 +25,5 @@ RUN useradd -m -G sudo -u 1001 espressopp
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER espressopp
 ENV PATH=/usr/lib/ccache:${PATH}${PATH:+:}
+ENV H5PY_ALWAYS_USE_MPI=ON
 WORKDIR /home/espressopp
