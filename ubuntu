@@ -4,21 +4,46 @@ FROM ubuntu:${TAG}
 ARG MPI=openmpi
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && \
-    apt-get upgrade -y && \
+RUN apt-get update
+RUN apt-get upgrade -y && \
     if [ "${MPI}" = mpich ]; then \
       apt-get install -y libmpich-dev; \
     elif [ "${MPI}" = openmpi ]; then \
       apt-get install -y openmpi-bin; \
-    fi && \
-    apt-get install -y build-essential libfftw3-dev \
+    fi
+RUN apt-get install -y \
+    build-essential \
+    libboost-all-dev \
+    libfftw3-dev \
+    libgromacs-dev \
+    libhdf5-${MPI}-dev \
+    git \
+    cmake \
+    wget \
+    ipython3 \
+    clang \
+    llvm \
+    ccache \
+    doxygen \
+    sphinx-common \
     python3-dev \
-    libboost-all-dev git python3-mpi4py cmake wget python3-numpy ipython3 \
-    clang llvm ccache python3-pip doxygen sphinx-common python3-matplotlib \
-    graphviz texlive-latex-base texlive-latex-extra texlive-latex-recommended \
-    ghostscript libgromacs-dev clang-format curl latexmk libhdf5-${MPI}-dev hdf5-tools python3-h5py-mpi sudo && \
-    apt-get purge --autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
+    python3-h5py-mpi \
+    python3-matplotlib \
+    python3-mpi4py \
+    python3-numpy \
+    python3-pip \
+    graphviz \
+    texlive-latex-base \
+    texlive-latex-extra \
+    texlive-latex-recommended \
+    ghostscript \
+    clang-format \
+    curl \
+    latexmk \
+    hdf5-tools \
+    sudo
+RUN apt-get purge --autoremove -y
+RUN rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install pyh5md
 RUN useradd -m -G sudo -u 1001 espressopp
