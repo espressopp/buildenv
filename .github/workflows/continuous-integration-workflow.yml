@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         config:
-          - {dockerfile: 'fedora',   tag: 'fedora',              build_args: 'PYTHON=python3.11'}
+          - {dockerfile: 'fedora',   tag: 'fedora'}
           - {dockerfile: 'fedora',   tag: 'fedora_mpich',        build_args: 'MPI=mpich'}
           - {dockerfile: 'fedora',   tag: 'fedora_rawhide',      build_args: 'TAG=rawhide,PYTHON=python3.10', continue-on-error: 'true'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu'}
