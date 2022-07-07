@@ -1,6 +1,6 @@
 FROM opensuse/tumbleweed:latest
 
-ARG PYTHON=python3.8
+ARG PYTHON=python3.10
 ARG MPI=openmpi4
 
 RUN zypper dup -y && \
