@@ -39,6 +39,8 @@ ENV PYTHONPATH=/usr/lib64/${PYTHON}/site-packages/${MPI}${PYTHONPATH:+:}${PYTHON
 WORKDIR /home/espressopp
 
 RUN git clone https://github.com/scafacos/scafacos.git && \
- cmake -S scafacos -B scafacos/build -DCMAKE_PREFIX_PATH=/usr && \
- cmake --build scafacos/build && \
- cmake --install scafacos/build
+  cd scafacos && \
+  ./bootstrap && \
+  ./configure --prefix=/usr && \
+  make && \
+  make install
