@@ -41,6 +41,6 @@ WORKDIR /home/espressopp
 RUN git clone --recursive https://github.com/scafacos/scafacos.git && \
   cd scafacos && \
   ./bootstrap && \
-  ./configure --prefix=/usr && \
+  ./configure --prefix=/usr --disable-fcs-fortran --enable-shared --with-fftw3=/usr && \
   make && \
-  make install
+  sudo make install
