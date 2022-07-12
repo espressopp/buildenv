@@ -8,7 +8,7 @@ ARG MPI=openmpi
 RUN ( dnf -y update || dnf -y update ) && \
     dnf -y install make cmake wget git gcc-c++ doxygen python-devel \
     ${MPI}-devel environment-modules python-pip clang llvm compiler-rt \
-    ccache findutils boost-devel boost-python3-devel python-sphinx fftw-devel fftw-openmpi-devel \
+    ccache findutils boost-devel boost-python3-devel python-sphinx fftw-devel fftw-${MPI}-devel \
     python-matplotlib texlive-latex-bin graphviz boost-${MPI}-devel latexmk \
     texlive-fancyhdr texlive-titlesec texlive-capt-of texlive-courier texlive-dvips texlive-fancyvrb texlive-framed texlive-gsftopk \
     texlive-helvetic texlive-makeindex texlive-needspace texlive-parskip texlive-tabulary texlive-times texlive-upquote \
