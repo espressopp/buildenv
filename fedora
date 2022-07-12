@@ -37,3 +37,8 @@ ENV LD_LIBRARY_PATH=${INTEL:+/opt/intel/oneapi/compiler/latest/linux/compiler/li
 RUN XPYTHON=$(basename $(readlink -f /usr/bin/python3)); if [[ ${XPYTHON} != ${PYTHON} ]]; then echo "PYTHON default needs update (is currently ${PYTHON}, but found ${XPYTHON})"; exit 1; fi
 ENV PYTHONPATH=/usr/lib64/${PYTHON}/site-packages/${MPI}${PYTHONPATH:+:}${PYTHONPATH}
 WORKDIR /home/espressopp
+
+RUN git https://github.com/scafacos/scafacos.git && \
+ cmake -S scafacos -B scafacos/build -DCMAKE_PREFIX_PATH=/usr && \
+ cmake --build scafacos/build && \
+ cmake --install scafacos/build
