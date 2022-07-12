@@ -38,7 +38,7 @@ RUN XPYTHON=$(basename $(readlink -f /usr/bin/python3)); if [[ ${XPYTHON} != ${P
 ENV PYTHONPATH=/usr/lib64/${PYTHON}/site-packages/${MPI}${PYTHONPATH:+:}${PYTHONPATH}
 WORKDIR /home/espressopp
 
-RUN git https://github.com/scafacos/scafacos.git && \
+RUN git clone https://github.com/scafacos/scafacos.git && \
  cmake -S scafacos -B scafacos/build -DCMAKE_PREFIX_PATH=/usr && \
  cmake --build scafacos/build && \
  cmake --install scafacos/build
