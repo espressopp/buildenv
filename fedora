@@ -12,7 +12,7 @@ RUN ( dnf -y update || dnf -y update ) && \
     python-matplotlib texlive-latex-bin graphviz boost-${MPI}-devel latexmk \
     texlive-fancyhdr texlive-titlesec texlive-capt-of texlive-courier texlive-dvips texlive-fancyvrb texlive-framed texlive-gsftopk \
     texlive-helvetic texlive-makeindex texlive-needspace texlive-parskip texlive-tabulary texlive-times texlive-upquote \
-    texlive-varwidth texlive-wrapfig texlive-babel-english python3-coverage gromacs \
+    texlive-varwidth texlive-wrapfig texlive-babel-english python3-coverage gromacs autoconf \
     ghostscript python3-mpi4py-${MPI} texlive-hyphen-base texlive-cm texlive-cmap texlive-fncychap \
     texlive-ucs texlive-ec gromacs-devel hwloc-devel lmfit-devel ocl-icd-devel python-h5py-${MPI} atlas hdf5-${MPI}-devel liblzf \
     python-six python-nose python-numpy texlive-amsmath texlive-amsfonts sudo texlive-babel texlive-psnfss texlive-fncychap \
