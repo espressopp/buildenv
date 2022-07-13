@@ -40,7 +40,7 @@ WORKDIR /home/espressopp
 
 RUN git clone --recursive https://github.com/scafacos/scafacos.git && \
   cd scafacos && \
-  ./bootstrap && \
+  { ./bootstrap || true; } && \
   ./configure --prefix=/usr --disable-fcs-fortran --enable-fcs-solvers=direct,ewald,p3m,wolf --enable-shared --disable-static --with-fftw3-includedir=/usr/include/${MPI}-x86_64/ --with-fftw3-libdir=/usr/lib64/${MPI}/lib && \
   make && \
   sudo make install
