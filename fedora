@@ -1,7 +1,7 @@
 ARG TAG=latest
 FROM registry.fedoraproject.org/fedora:${TAG}
 
-ARG PYTHON=python3.10
+ARG PYTHON=python3.11
 ARG INTEL
 ARG MPI=openmpi
 
