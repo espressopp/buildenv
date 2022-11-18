@@ -17,13 +17,13 @@ jobs:
         config:
           - {dockerfile: 'fedora',   tag: 'fedora'}
           - {dockerfile: 'fedora',   tag: 'fedora_mpich',        build_args: 'MPI=mpich'}
-          - {dockerfile: 'fedora',   tag: 'fedora_rawhide',      build_args: "TAG=rawhide\nPYTHON=python3.11", continue-on-error: 'true'}
+          - {dockerfile: 'fedora',   tag: 'fedora_rawhide',      build_args: 'TAG=rawhide', continue-on-error: 'true'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_mpich',        build_args: 'MPI=mpich'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_rolling',      build_args: 'TAG=rolling'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_devel',        build_args: 'TAG=devel', continue-on-error: 'true'}
           - {dockerfile: 'opensuse', tag: 'opensuse',            continue-on-error: 'true'}
-          - {dockerfile: 'fedora',   tag: 'fedora_intel',        build_args: "INTEL=yes"}
+          - {dockerfile: 'fedora',   tag: 'fedora_intel',        build_args: 'INTEL=yes'}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout out code
@@ -35,11 +35,17 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Convert build_args
+        id: build_args
+        run: |
+          echo "args<<EOF" >> $GITHUB_OUTPUT 
+          echo ${{ matrix.config.build_args }} | sed 's/,/\n/' >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
       - name: Build and Push Docker images for Docker
         uses: docker/build-push-action@v3        
         with:
           tags: espressopp/buildenv:${{ matrix.config.tag }}
           file: ${{ matrix.config.dockerfile }}
-          build-args: ${{ matrix.config.build_args }}
+          build-args: ${{ steps.build_args.outputs.args }}
           pull: true
           push: ${{ github.event_name == 'push' ||  github.event_name == 'schedule' }}
