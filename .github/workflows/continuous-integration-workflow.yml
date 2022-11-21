@@ -26,8 +26,6 @@ jobs:
           - {dockerfile: 'fedora',   tag: 'fedora_intel',        build_args: 'INTEL=yes'}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout out code
-        uses: actions/checkout@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Login to Github Container Registry
