@@ -38,6 +38,10 @@ RUN XPYTHON=$(basename $(readlink -f /usr/bin/python3)); if [[ ${XPYTHON} != ${P
 ENV PYTHONPATH=/usr/lib64/${PYTHON}/site-packages/${MPI}${PYTHONPATH:+:}${PYTHONPATH}
 WORKDIR /home/espressopp
 
+# workaround network detection interface in OpenMPI
+ENV OMPI_MCA_btl=vader,self
+ENV OMPI_MCA_mtl=^ofi
+
 RUN git clone --recursive https://github.com/scafacos/scafacos.git && \
   cd scafacos && \
   { ./bootstrap || true; } && \
