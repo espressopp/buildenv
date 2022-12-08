@@ -23,3 +23,7 @@ ENV PYTHONPATH=/usr/lib64/mpi/gcc/${MPI}/lib64/${PYTHON}/site-packages${PYTHONPA
 # workaround for bug in openSUSE package, also remove zlib-devel above when fixed!
 ENV HDF5_USE_SHLIB=yes
 WORKDIR /home/espressopp
+
+# workaround network detection interface in OpenMPI
+ENV OMPI_MCA_btl=vader,self
+ENV OMPI_MCA_mtl=^ofi
