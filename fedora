@@ -16,7 +16,7 @@ RUN ( dnf -y update || dnf -y update ) && \
     ghostscript python3-mpi4py-${MPI} texlive-hyphen-base texlive-cm texlive-cmap texlive-fncychap \
     texlive-ucs texlive-ec gromacs-devel hwloc-devel lmfit-devel ocl-icd-devel python-h5py-${MPI} atlas hdf5-${MPI}-devel liblzf \
     python-six python-nose python-numpy texlive-amsmath texlive-amsfonts sudo texlive-babel texlive-psnfss texlive-fncychap \
-    texlive-tex-gyre && \
+    texlive-tex-gyre hpx hpx-devel hpx-${MPI}-devel && \
     dnf clean all
 
 RUN if [ "${INTEL}" = "yes" ]; then \
