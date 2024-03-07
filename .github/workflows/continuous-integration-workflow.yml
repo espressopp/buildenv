@@ -23,7 +23,7 @@ jobs:
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_rolling',      build_args: 'TAG=rolling'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_devel',        build_args: 'TAG=devel', continue-on-error: 'true'}
           - {dockerfile: 'opensuse', tag: 'opensuse',            continue-on-error: 'true'}
-          - {dockerfile: 'fedora',   tag: 'fedora_intel',        build_args: 'INTEL=yes'}
+          - {dockerfile: 'fedora',   tag: 'fedora_intel',        build_args: 'TAG=38,INTEL=yes,PYTHON=python3.11', continue-on-error: 'true'}
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
@@ -37,7 +37,7 @@ jobs:
         id: build_args
         run: |
           echo "args<<EOF" >> $GITHUB_OUTPUT 
-          echo ${{ matrix.config.build_args }} | sed 's/,/\n/' >> $GITHUB_OUTPUT
+          echo ${{ matrix.config.build_args }} | sed 's/,/\n/g' >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
       - name: Build and Push Docker images for Docker
         uses: docker/build-push-action@v3        

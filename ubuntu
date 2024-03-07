@@ -45,7 +45,11 @@ RUN apt-get install -y \
 RUN apt-get purge --autoremove -y
 RUN rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install pyh5md
+RUN . /etc/os-release && if [ "${VERSION_ID}" = "22.04" ]; then \
+  pip3 install pyh5md; \
+else \
+  pip3 install --break-system-packages pyh5md; \
+fi
 RUN useradd -m -G sudo -u 1001 espressopp
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER espressopp
