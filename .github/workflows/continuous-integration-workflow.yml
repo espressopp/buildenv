@@ -27,9 +27,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
       - name: Login to Github Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -40,7 +40,7 @@ jobs:
           echo ${{ matrix.config.build_args }} | sed 's/,/\n/g' >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
       - name: Build and Push Docker images for Docker
-        uses: docker/build-push-action@v3        
+        uses: docker/build-push-action@v5        
         with:
           tags: espressopp/buildenv:${{ matrix.config.tag }}
           file: ${{ matrix.config.dockerfile }}
