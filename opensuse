@@ -8,7 +8,7 @@ RUN zypper dup -y && \
     libboost_mpi-devel libboost_python3-devel libboost_serialization-devel \
     libboost_system-devel libboost_test-devel shadow git libboost_numpy3-devel \
     python3-mpi4py-devel python3-devel cmake ccache fftw3-devel hdf5-${MPI}-devel gromacs \
-    gromacs-devel python3-pip llvm-clang python3-h5py-${MPI} sudo libomp-devel zlib-devel && \
+    gromacs-devel python3-pip python3-venv llvm-clang python3-h5py-${MPI} sudo libomp-devel zlib-devel && \
     zypper clean
 
 RUN pip3 install  --break-system-packages pyh5md
