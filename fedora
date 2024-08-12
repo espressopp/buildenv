@@ -1,9 +1,9 @@
-ARG TAG=latest \
-    PYTHON=python3.12 \
-    INTEL \
-    MPI=openmpi
-
+ARG TAG=latest
 FROM registry.fedoraproject.org/fedora:${TAG}
+
+ARG PYTHON=python3.12
+ARG INTEL
+ARG MPI=openmpi
 
 RUN ( dnf -y update || dnf -y update ) \
     && dnf -y install \
@@ -97,16 +97,16 @@ RUN pip3 install pyh5md
 RUN useradd -m -G wheel -u 1001 espressopp
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER espressopp
-ENV PATH=/usr/lib64/ccache:${PATH}${PATH:+:}/usr/lib64/${MPI}/bin/ \
-    LD_LIBRARY_PATH=/usr/lib64/${MPI}/lib${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH} \
-    PATH=${INTEL:+/opt/intel/oneapi/compiler/latest/linux/bin:/opt/intel/oneapi/compiler/latest/linux/bin/intel64}${PATH:+:}${PATH} \
-    LD_LIBRARY_PATH=${INTEL:+/opt/intel/oneapi/compiler/latest/linux/compiler/lib/intel64:/opt/intel/oneapi/mkl/latest/lib/intel64}${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH} \
-    PYTHONPATH=/usr/lib64/${PYTHON}/site-packages/${MPI}${PYTHONPATH:+:}${PYTHONPATH}
+ENV PATH=/usr/lib64/ccache:${PATH}${PATH:+:}/usr/lib64/${MPI}/bin/
+ENV LD_LIBRARY_PATH=/usr/lib64/${MPI}/lib${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH}
+ENV PATH=${INTEL:+/opt/intel/oneapi/compiler/latest/linux/bin:/opt/intel/oneapi/compiler/latest/linux/bin/intel64}${PATH:+:}${PATH}
+ENV LD_LIBRARY_PATH=${INTEL:+/opt/intel/oneapi/compiler/latest/linux/compiler/lib/intel64:/opt/intel/oneapi/mkl/latest/lib/intel64}${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH}
+ENV PYTHONPATH=/usr/lib64/${PYTHON}/site-packages/${MPI}${PYTHONPATH:+:}${PYTHONPATH}
 WORKDIR /home/espressopp
 
 # workaround network detection interface in OpenMPI
-ENV OMPI_MCA_btl=vader,self \
-    OMPI_MCA_mtl=^ofi
+ENV OMPI_MCA_btl=vader,self
+ENV OMPI_MCA_mtl=^ofi
 
 RUN git clone --recursive https://github.com/scafacos/scafacos.git && \
   cd scafacos && \
