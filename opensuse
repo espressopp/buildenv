@@ -3,13 +3,36 @@ FROM opensuse/tumbleweed:latest
 ARG PYTHON=python3.11
 ARG MPI=openmpi4
 
-RUN zypper dup -y && \
-    zypper install -y gcc-c++ ${MPI}-devel boost-devel libboost_filesystem-devel \
-    libboost_mpi-devel libboost_python3-devel libboost_serialization-devel \
-    libboost_system-devel libboost_test-devel shadow git libboost_numpy3-devel \
-    python3-mpi4py-devel python3-devel cmake ccache fftw3-devel hdf5-${MPI}-devel gromacs \
-    gromacs-devel python3-pip llvm-clang python3-h5py-${MPI} sudo libomp-devel zlib-devel && \
-    zypper clean
+RUN zypper dup -y \
+    && zypper install -y \
+        ${MPI}-devel \
+        boost-devel \
+        ccache \
+        cmake \
+        fftw3-devel \
+        gcc-c++ \
+        git \
+        gromacs \
+        gromacs-devel \
+        hdf5-${MPI}-devel \
+        libboost_filesystem-devel \
+        libboost_mpi-devel \
+        libboost_numpy3-devel \
+        libboost_python3-devel \
+        libboost_serialization-devel \
+        libboost_system-devel \
+        libboost_test-devel \
+        libomp-devel \
+        llvm-clang \
+        python3-devel \
+        python3-h5py-${MPI} \
+        python3-mpi4py-devel \
+        python3-pip \
+        python3-virtualenv \
+        shadow \
+        sudo \
+        zlib-devel \
+    && zypper clean
 
 RUN pip3 install  --break-system-packages pyh5md
 RUN groupadd -r wheel

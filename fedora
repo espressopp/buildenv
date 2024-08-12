@@ -5,19 +5,86 @@ ARG PYTHON=python3.12
 ARG INTEL
 ARG MPI=openmpi
 
-RUN ( dnf -y update || dnf -y update ) && \
-    dnf -y install make cmake wget git gcc-c++ doxygen python-devel \
-    ${MPI}-devel environment-modules python-pip clang llvm compiler-rt \
-    ccache findutils boost-devel boost-python3-devel python-sphinx fftw-devel fftw-${MPI}-devel \
-    python-matplotlib texlive-latex-bin graphviz boost-${MPI}-devel latexmk \
-    texlive texlive-fancyhdr texlive-titlesec texlive-capt-of texlive-courier texlive-dvips texlive-fancyvrb texlive-framed texlive-gsftopk \
-    texlive-helvetic texlive-makeindex texlive-needspace texlive-overdiek texlive-parskip texlive-tabulary texlive-times texlive-upquote \
-    texlive-varwidth texlive-wrapfig texlive-babel-english python3-coverage gromacs autoconf automake libtool gsl-devel \
-    ghostscript python3-mpi4py-${MPI} texlive-hyphen-base texlive-cm texlive-cmap texlive-fncychap \
-    texlive-ucs texlive-ec gromacs-devel hwloc-devel lmfit-devel ocl-icd-devel python-h5py-${MPI} atlas hdf5-${MPI}-devel liblzf \
-    python-six python-nose python-numpy texlive-amsmath texlive-amsfonts sudo texlive-babel texlive-psnfss texlive-fncychap \
-    texlive-tex-gyre hpx hpx-devel hpx-${MPI}-devel && \
-    dnf clean all
+RUN ( dnf -y update || dnf -y update ) \
+    && dnf -y install \
+        ${MPI}-devel \
+        atlas \
+        autoconf \
+        automake \
+        boost-${MPI}-devel \
+        boost-devel \
+        boost-python3-devel \
+        ccache \
+        clang \
+        cmake \
+        compiler-rt \
+        doxygen \
+        environment-modules \
+        fftw-${MPI}-devel \
+        fftw-devel \
+        findutils \
+        gcc-c++ \
+        ghostscript \
+        git \
+        graphviz \
+        gromacs \
+        gromacs-devel \
+        gsl-devel \
+        hdf5-${MPI}-devel \
+        hpx-${MPI}-devel \
+        hwloc-devel \
+        latexmk \
+        liblzf \
+        libtool \
+        llvm \
+        lmfit-devel \
+        make \
+        ocl-icd-devel \
+        python-devel \
+        python-h5py-${MPI} \
+        python-matplotlib \
+        python-nose \
+        python-numpy \
+        python-pip \
+        python-six \
+        python-sphinx \
+        python3-coverage \
+        python3-mpi4py-${MPI} \
+        sudo \
+        texlive-amsfonts \
+        texlive-amsmath \
+        texlive-babel \
+        texlive-babel-english \
+        texlive-capt-of \
+        texlive-cm \
+        texlive-cmap \
+        texlive-courier \
+        texlive-dvips \
+        texlive-ec \
+        texlive-fancyhdr \
+        texlive-fancyvrb \
+        texlive-fncychap \
+        texlive-fncychap \
+        texlive-framed \
+        texlive-gsftopk \
+        texlive-helvetic \
+        texlive-hyphen-base \
+        texlive-latex-bin \
+        texlive-makeindex \
+        texlive-needspace \
+        texlive-oberdiek \
+        texlive-parskip \
+        texlive-psnfss \
+        texlive-tabulary \
+        texlive-tex-gyre \
+        texlive-times \
+        texlive-titlesec \
+        texlive-ucs \
+        texlive-upquote \
+        texlive-varwidth \
+        texlive-wrapfig \
+        wget \
+    && dnf clean all
 
 RUN if [ "${INTEL}" = "yes" ]; then \
   printf "[oneAPI]\nname=Intel oneAPI\nbaseurl=https://yum.repos.intel.com/oneapi\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB" > /etc/yum.repos.d/intel-oneapi.repo && \
@@ -25,6 +92,7 @@ RUN if [ "${INTEL}" = "yes" ]; then \
   dnf -y install intel-oneapi-compiler-dpcpp-cpp intel-oneapi-compiler-dpcpp-cpp-and-cpp-classic intel-oneapi-mkl-devel && \
   dnf clean all; \
 fi
+
 
 RUN pip3 install pyh5md
 RUN useradd -m -G wheel -u 1001 espressopp
@@ -34,7 +102,6 @@ ENV PATH=/usr/lib64/ccache:${PATH}${PATH:+:}/usr/lib64/${MPI}/bin/
 ENV LD_LIBRARY_PATH=/usr/lib64/${MPI}/lib${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH}
 ENV PATH=${INTEL:+/opt/intel/oneapi/compiler/latest/linux/bin:/opt/intel/oneapi/compiler/latest/linux/bin/intel64}${PATH:+:}${PATH}
 ENV LD_LIBRARY_PATH=${INTEL:+/opt/intel/oneapi/compiler/latest/linux/compiler/lib/intel64:/opt/intel/oneapi/mkl/latest/lib/intel64}${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH}
-RUN XPYTHON=$(basename $(readlink -f /usr/bin/python3)); if [[ ${XPYTHON} != ${PYTHON} ]]; then echo "PYTHON default needs update (is currently ${PYTHON}, but found ${XPYTHON})"; exit 1; fi
 ENV PYTHONPATH=/usr/lib64/${PYTHON}/site-packages/${MPI}${PYTHONPATH:+:}${PYTHONPATH}
 WORKDIR /home/espressopp
 

@@ -17,13 +17,13 @@ jobs:
         config:
           - {dockerfile: 'fedora',   tag: 'fedora'}
           - {dockerfile: 'fedora',   tag: 'fedora_mpich',        build_args: 'MPI=mpich'}
-          - {dockerfile: 'fedora',   tag: 'fedora_rawhide',      build_args: 'TAG=rawhide', continue-on-error: 'true'}
+          - {dockerfile: 'fedora',   tag: 'fedora_rawhide',      build_args: 'TAG=rawhide,MPI=mpich', continue-on-error: 'true'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_mpich',        build_args: 'MPI=mpich'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_rolling',      build_args: 'TAG=rolling'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_devel',        build_args: 'TAG=devel', continue-on-error: 'true'}
           - {dockerfile: 'opensuse', tag: 'opensuse',            continue-on-error: 'true'}
-          - {dockerfile: 'fedora',   tag: 'fedora_intel',        build_args: 'TAG=38,INTEL=yes,PYTHON=python3.11', continue-on-error: 'true'}
+          - {dockerfile: 'fedora',   tag: 'fedora_intel',        build_args: 'TAG=40,INTEL=yes,PYTHON=python3.11', continue-on-error: 'true'}
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
