@@ -72,6 +72,7 @@ RUN ( dnf -y update || dnf -y update ) \
         texlive-latex-bin \
         texlive-makeindex \
         texlive-needspace \
+        texlive-oberdiek \
         texlive-parskip \
         texlive-psnfss \
         texlive-tabulary \
