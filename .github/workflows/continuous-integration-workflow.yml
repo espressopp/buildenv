@@ -17,7 +17,7 @@ jobs:
         config:
           - {dockerfile: 'fedora',   tag: 'fedora'}
           - {dockerfile: 'fedora',   tag: 'fedora_mpich',        build_args: 'MPI=mpich'}
-          - {dockerfile: 'fedora',   tag: 'fedora_rawhide',      build_args: 'TAG=rawhide', continue-on-error: 'true'}
+          - {dockerfile: 'fedora',   tag: 'fedora_rawhide',      build_args: 'TAG=rawhide,MPI=mpich', continue-on-error: 'true'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_mpich',        build_args: 'MPI=mpich'}
           - {dockerfile: 'ubuntu',   tag: 'ubuntu_rolling',      build_args: 'TAG=rolling'}
