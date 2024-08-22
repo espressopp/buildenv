@@ -50,6 +50,7 @@ RUN ( dnf -y update || dnf -y update ) \
         python-sphinx \
         python3-coverage \
         python3-mpi4py-${MPI} \
+        Random123-devel \
         sudo \
         texlive-amsfonts \
         texlive-amsmath \
