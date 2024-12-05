@@ -22,6 +22,7 @@ RUN apt-get install -y \
     wget \
     ipython3 \
     clang \
+    libomp-dev \
     llvm \
     ccache \
     doxygen \
