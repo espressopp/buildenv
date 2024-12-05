@@ -47,3 +47,4 @@ jobs:
           build-args: ${{ steps.build_args.outputs.args }}
           pull: true
           push: ${{ github.event_name == 'push' ||  github.event_name == 'schedule' }}
+
