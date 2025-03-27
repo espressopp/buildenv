@@ -95,7 +95,7 @@ RUN if [ "${INTEL}" = "yes" ]; then \
 fi
 
 
-RUN pip3 install pyh5md
+RUN pip3 install git+https://github.com/pdebuyl/pyh5md
 RUN useradd -m -G wheel -u 1001 espressopp
 RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER espressopp
