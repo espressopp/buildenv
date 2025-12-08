@@ -1,6 +1,6 @@
 ARG TAG=latest
 FROM ubuntu:${TAG}
-
+ 
 ARG MPI=openmpi
 
 ENV DEBIAN_FRONTEND=noninteractive
