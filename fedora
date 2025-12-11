@@ -43,7 +43,6 @@ RUN ( dnf -y update || dnf -y update ) \
         python-devel \
         python-h5py-${MPI} \
         python-matplotlib \
-        python-nose \
         python-numpy \
         python-pip \
         python-six \
